@@ -15,6 +15,9 @@
   <group if="$(eval mir_type=='MiR200')">
     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_200/mir_200.urdf" />
   </group>
+  <group if="$(eval mir_type=='MiR600')">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_600/mir_600.urdf" />
+  </group>
 
 
   <!-- Robot state publisher -->
