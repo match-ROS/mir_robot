@@ -73,9 +73,22 @@
       <remap from="map_metadata" to="/map_metadata" />
       <remap from="rosout" to="/rosout" />
       <remap from="rosout_agg" to="/rosout_agg" />
-      <remap from="tf" to="/tf" />
+      <remap from="/tf" to="tf_mir" />
+      <remap from="/tf_static" to="tf_static_mir" />
     </node>
   </group>
+
+    <!-- remove those TFs when using mocap -->
+  <node name="remove_tf_frames" pkg="mir_launch_hardware" type="remove_tf_frames.py" output="screen">
+      <remap from="tf_in"         to="tf_mir" />
+      <remap from="tf_out"        to="/tf" />
+      <remap from="tf_static_in"  to="tf_static_mir" />
+      <remap from="tf_static_out" to="/tf_static" />
+      <rosparam param="remove_frames">
+      - $(arg tf_prefix)/base_footprint
+      - $(arg tf_prefix)/odom
+      </rosparam>
+  </node>
 
   <node name="b_rep117_laser_filter" pkg="mir_driver" type="rep117_filter.py" output="screen">
     <remap from="scan" to="b_scan" />
