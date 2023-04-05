@@ -7,6 +7,8 @@
 
   <arg name="disable_map" default="false" doc="Disable the map topic and map -> odom TF transform from the MiR" />
 
+  <arg name="external_localization" value="false" doc="enable when using external localization" />
+
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)"/>
 
   <group if="$(eval mir_type=='MiR100')">
@@ -84,6 +86,7 @@
       <remap from="tf_out"        to="/tf" />
       <remap from="tf_static_in"  to="tf_static_mir" />
       <remap from="tf_static_out" to="/tf_static" />
+      <param name="external_localization" value="$(arg external_localization)" />
       <rosparam param="remove_frames" subst_value="True">$(arg tf_prefix)/base_footprint $(arg tf_prefix)/odom 
       </rosparam>
   </node>
