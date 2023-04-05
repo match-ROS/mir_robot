@@ -6,7 +6,7 @@ from tf.msg import tfMessage
 
 def main():
     rospy.init_node('tf_remove_child_frames')
-    remove_frames = rospy.get_param('~remove_frames', ['base_link', 'base_footprint'])
+    remove_frames = []#rospy.get_param('~remove_frames', ['base_link', 'base_footprint'])
     external_localization = rospy.get_param('~external_localization', False)
     
     # if internel localization is used, keep all frames
