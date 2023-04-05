@@ -9,7 +9,8 @@ def main():
     remove_frames = rospy.get_param('~remove_frames', ['base_link', 'base_footprint'])
     external_localization = rospy.get_param('~external_localization', False)
     
-    if external_localization:
+    # if internel localization is used, keep all frames
+    if external_localization == False:
         remove_frames = []
 
     rospy.logerr('Removing frames: {}'.format(remove_frames))
