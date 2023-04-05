@@ -8,7 +8,7 @@ def main():
     rospy.init_node('tf_remove_child_frames')
     remove_frames = rospy.get_param('~remove_frames', ['base_link', 'base_footprint'])
 
-    print('Removing frames: {}'.format(remove_frames))
+    rospy.logerr('Removing frames: {}'.format(remove_frames))
     
     # filter tf_in topic
     tf_pub = rospy.Publisher('tf_out', tfMessage, queue_size=1)
