@@ -90,7 +90,7 @@
       </rosparam>
   </node> -->
 
-  <node name="tf_remove_mir_map_frame" pkg="mir_driver" type="tf_remove_child_frames.py" output="screen">
+  <node name="remove_tf_frames" pkg="mir_driver" type="tf_remove_child_frames.py" output="screen">
       <remap from="tf_in"         to="tf_mir" />
       <remap from="tf_out"        to="/tf" />
       <remap from="tf_static_in"  to="tf_static_mir" />
