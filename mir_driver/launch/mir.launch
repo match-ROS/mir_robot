@@ -9,6 +9,8 @@
 
   <arg name="external_localization" default="False" doc="enable when using external localization" />
 
+  <arg name="lift" default="true" doc="if prismatic lift joint is used"/>
+
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)"/>
 
   <group if="$(eval mir_type=='MiR100')">
@@ -18,7 +20,7 @@
     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_200/mir_200.urdf" />
   </group>
   <group if="$(eval mir_type=='MiR600')">
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_600/mir_600.urdf" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_600/mir_600.urdf use_lift:=$(arg lift)" />
   </group>
 
 
