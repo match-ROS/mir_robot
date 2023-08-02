@@ -35,6 +35,7 @@ add_message_files(
     IOs.msg
     JoystickVel.msg
     LocalMapStat.msg
+    LightCmd.msg
     MirExtra.msg
     MissionCtrlCommand.msg
     MissionCtrlState.msg

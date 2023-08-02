@@ -319,6 +319,7 @@ SUB_TOPICS = [
     TopicConfig('cmd_vel', geometry_msgs.msg.Twist, dict_filter=_cmd_vel_dict_filter),
     TopicConfig('initialpose', geometry_msgs.msg.PoseWithCovarianceStamped),
     TopicConfig('light_cmd', std_msgs.msg.String),
+    TopicConfig('new_light_cmd', mir_msgs.msg.LightCmd),
     TopicConfig('mir_cmd', std_msgs.msg.String),
     TopicConfig('move_base/cancel', actionlib_msgs.msg.GoalID),
     # really mir_actions/MirMoveBaseActionGoal:
