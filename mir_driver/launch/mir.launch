@@ -1,5 +1,5 @@
 <launch>
-  <arg name="mir_type" default="mir_100" doc="This variable selects the robot that is loaded. Default: MiR200. Options: MiR100, MiR200" />
+  <arg name="robot_description" default="$(find mir_description)/urdf/mir_100/mir_100.urdf" doc="The path to load the robot_description param" />
 
   <arg name="tf_prefix" default="" doc="TF prefix to use for all of MiR's TF frames"/>
 
@@ -7,14 +7,12 @@
 
   <arg name="disable_map" default="false" doc="Disable the map topic and map -> odom TF transform from the MiR" />
 
+  <arg name="external_localization" default="False" doc="enable when using external localization" />
+
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)"/>
 
-  <group if="$(eval mir_type=='MiR100')">
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_100/mir_100.urdf" />
-  </group>
-  <group if="$(eval mir_type=='MiR200')">
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mir_description)/urdf/mir_200/mir_200.urdf" />
-  </group>
+  
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg robot_description)" />
 
 
   <!-- Robot state publisher -->
@@ -70,9 +68,21 @@
       <remap from="map_metadata" to="/map_metadata" />
       <remap from="rosout" to="/rosout" />
       <remap from="rosout_agg" to="/rosout_agg" />
-      <remap from="tf" to="/tf" />
+      <remap from="/tf" to="tf_mir" />
+      <remap from="/tf_static" to="tf_static_mir" />
     </node>
   </group>
+
+    <!-- remove those TFs when using mocap -->
+  <node name="remove_tf_frames" pkg="mir_driver" type="remove_tf_frames.py" output="screen">
+      <remap from="tf_in"         to="tf_mir" />
+      <remap from="tf_out"        to="/tf" />
+      <remap from="tf_static_in"  to="tf_static_mir" />
+      <remap from="tf_static_out" to="/tf_static" />
+      <param name="external_localization" value="$(arg external_localization)" />
+      <rosparam param="remove_frames" subst_value="True">$(arg tf_prefix)/base_footprint $(arg tf_prefix)/odom 
+      </rosparam>
+  </node>
 
   <node name="b_rep117_laser_filter" pkg="mir_driver" type="rep117_filter.py" output="screen">
     <remap from="scan" to="b_scan" />
