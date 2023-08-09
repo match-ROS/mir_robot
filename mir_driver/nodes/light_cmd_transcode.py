@@ -16,6 +16,8 @@ class LightCmdTranscode():
         local_master_uri = "http://roscore:11311"
         remote_master_uri = "http://192.168.12.20:11311"
         self.sub_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # wait for socket to be ready
+        rospy.sleep(1.0)
         self.sub_socket.connect(('localhost', 8000))
         self.set_ros_master_uri(remote_master_uri)
         rospy.init_node('light_cmd_transcode_remote')

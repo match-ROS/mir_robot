@@ -95,4 +95,10 @@
   </node>
 
   <node name="fake_mir_joint_publisher" pkg="mir_driver" type="fake_mir_joint_publisher.py" output="screen" />
+
+  <node name="light_cmd_transcode" pkg="mir_driver" type="light_cmd_transcode.py" output="screen" />
+
+  <node name="light_cmd_transcode_local" pkg="mir_driver" type="light_cmd_transcode_local.py" output="screen" />
+
+
 </launch>
