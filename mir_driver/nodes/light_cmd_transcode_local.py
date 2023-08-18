@@ -35,6 +35,7 @@ class LightCmdTranscodeLocal():
         
     def __on_shutdown(self):
         rospy.loginfo("Shutting down light_cmd_transcode_local node")
+        self.conn.shutdown(socket.SHUT_RDWR)
         self.conn.close()
         rospy.loginfo("Closed socket")
 
