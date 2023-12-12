@@ -15,7 +15,7 @@ class LightCmdTranscodeLocal():
         pub_socket.bind(('localhost', 8000))
         pub_socket.listen(1)
         self.conn, addr = pub_socket.accept()
-        rospy.Subscriber('/new_light_cmd', mir_msgs.msg.LightCmd, self.callback)        
+        rospy.Subscriber('new_light_cmd', mir_msgs.msg.LightCmd, self.callback)        
         rospy.spin()
 
     def callback(self,data):

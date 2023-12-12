@@ -28,6 +28,7 @@ class LightCmdTranscode():
         self.main()
         
     def main(self):
+        rospy.on_shutdown(self.shutdown)
         rate = rospy.Rate(100) # 10hz
         while not rospy.is_shutdown():
             json_data = self.sub_socket.recv(1024).decode()
@@ -39,6 +40,10 @@ class LightCmdTranscode():
                     
     def set_ros_master_uri(self,remote_uri):
         os.environ["ROS_MASTER_URI"] = remote_uri
+
+    def shutdown(self):
+        self.sub_socket.shutdown()
+        self.sub_socket.close()
 
 if __name__ == '__main__':
     try:
