@@ -18,7 +18,11 @@ class LightCmdTranscode():
         self.sub_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # wait for socket to be ready
         rospy.sleep(1.0)
-        self.sub_socket.connect(('localhost', 8000))
+        try:
+            self.sub_socket.connect(('localhost', 8000))
+        except ConnectionRefusedError:
+            rospy.logerr("LightCmdTranscode: Connection to socket refused")
+            return
         self.set_ros_master_uri(remote_master_uri)
         rospy.init_node('light_cmd_transcode_remote')
         rospy.wait_for_service('/light_srv')
@@ -42,7 +46,7 @@ class LightCmdTranscode():
         os.environ["ROS_MASTER_URI"] = remote_uri
 
     def shutdown(self):
-        self.sub_socket.shutdown()
+        self.sub_socket.shutdown(socket.SHUT_RDWR)
         self.sub_socket.close()
 
 if __name__ == '__main__':
