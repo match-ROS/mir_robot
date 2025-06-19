@@ -18,7 +18,17 @@ class LightCmdTranscode():
         self.sub_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # wait for socket to be ready
         rospy.sleep(1.0)
-        self.sub_socket.connect(('localhost', 8000))
+        for i in range(10):
+            try:
+                self.sub_socket.connect(('localhost', 8000))
+                break
+            except ConnectionRefusedError:
+                rospy.logwarn("socket not ready, retrying…")
+                rospy.sleep(5.0)
+        else:
+            rospy.logerr("couldn't connect to light_cmd server; aborting")
+            rospy.signal_shutdown("connect failed")
+            return
         self.set_ros_master_uri(remote_master_uri)
         rospy.init_node('light_cmd_transcode_remote')
         rospy.wait_for_service('/light_srv')
