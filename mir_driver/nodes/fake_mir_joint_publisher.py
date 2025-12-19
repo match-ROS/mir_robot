@@ -37,7 +37,7 @@ def fake_mir_joint_publisher():
     rospy.init_node('fake_mir_joint_publisher')
     prefix = rospy.get_param('~tf_prefix', '')
     prefix = ''
-    pub = rospy.Publisher('joint_states', JointState, queue_size=10)
+    pub = rospy.Publisher('joint_states_mir', JointState, queue_size=10)
     r = rospy.Rate(50)
     while not rospy.is_shutdown():
         js = JointState()
